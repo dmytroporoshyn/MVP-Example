@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MVP Example</string>
+    <string name="get_data">Get Data</string>
+    <string name="error_text">Get data error, see logs for more info</string>
+</resources>
