@@ -20,8 +20,20 @@ import com.dmytroporoshyn.mvpexample.view.MainActivity;
 
 import dagger.Component;
 
+/**
+ * The interface Application component.
+ *
+ * Definition of the Application graph
+ */
 @Component(modules = MainModule.class)
 public interface ApplicationComponent {
 
+    /**
+     * Inject.
+     * This tells Dagger that MainActivity requests injection so the graph needs to
+     * satisfy all the dependencies of the fields that MainActivity is injecting.
+     *
+     * @param mainActivity the main activity
+     */
     void inject(MainActivity mainActivity);
 }

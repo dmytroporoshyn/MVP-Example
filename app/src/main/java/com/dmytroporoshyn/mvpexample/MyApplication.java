@@ -21,8 +21,15 @@ import android.app.Application;
 import com.dmytroporoshyn.mvpexample.di.ApplicationComponent;
 import com.dmytroporoshyn.mvpexample.di.DaggerApplicationComponent;
 
+/**
+ * Override Application class.
+ * Also, need to add :name parameter into manifest
+ */
 public class MyApplication extends Application {
 
-    // Reference to the application graph that is used across the whole app
+    /**
+     * Reference to the application graph that is used across the whole app
+     * AppComponent lives in the Application class to share its lifecycle
+     */
     public ApplicationComponent appComponent = DaggerApplicationComponent.create();
 }

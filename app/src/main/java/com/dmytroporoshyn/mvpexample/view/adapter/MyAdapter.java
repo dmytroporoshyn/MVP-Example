@@ -28,10 +28,23 @@ import com.dmytroporoshyn.mvpexample.view.viewHolder.MyViewHolder;
 
 import java.util.List;
 
+/**
+ * The type My adapter.
+ *
+ * Adapter class must be extends RecyclerView.Adapter<MyViewHolder>
+ */
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
+    /**
+     * List with data
+     */
     private List<String> dataList;
 
+    /**
+     * Instantiates a new My adapter.
+     *
+     * @param dataList the list with data
+     */
     public MyAdapter(@NonNull List<String> dataList) {
         this.dataList = dataList;
     }
@@ -39,6 +52,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        //Create view from our layout
         View inflate = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item, parent, false);
         return new MyViewHolder(inflate);
@@ -46,11 +60,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        //Call bind method from our MyViewHolder
         holder.bind(dataList.get(position));
     }
 
     @Override
     public int getItemCount() {
+        //set size
         return dataList.size();
     }
 }

@@ -23,14 +23,36 @@ import com.dmytroporoshyn.mvpexample.presenter.MainActivityPresenter;
 import dagger.Module;
 import dagger.Provides;
 
+/**
+ * The type Main module.
+ * "@Module" informs Dagger that this class is a Dagger Module
+ */
 @Module
 class MainModule {
 
+    /* @Provides tell Dagger how to create instances of the type that this function
+     * returns (i.e. DataBaseModel).
+     * Function parameters are the dependencies of this type.
+     */
+
+    /**
+     * Function that create IDataBaseModel object
+     *
+     * @return the DataBaseModel
+     */
     @Provides
     IDataBaseModel dataBaseModel() {
+        /* Whenever Dagger needs to provide an instance of type DataBaseModel,
+         * this code (the one inside the @Provides method) is run.
+         */
         return new DataBaseModel();
     }
 
+    /**
+     * Function that create MainActivityPresenter object
+     *
+     * @return the MainActivityPresenter
+     */
     @Provides
     MainActivityPresenter mainActivityPresenter() {
         return new MainActivityPresenter(dataBaseModel());

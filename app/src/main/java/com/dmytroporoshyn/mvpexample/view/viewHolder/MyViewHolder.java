@@ -27,17 +27,38 @@ import com.dmytroporoshyn.mvpexample.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * The type My view holder.
+ *
+ * ViewHolder class must be extends RecyclerView.ViewHolder
+ */
 public class MyViewHolder extends RecyclerView.ViewHolder {
 
+    /**
+     * The Text view to show our content.
+     */
     @BindView(R.id.textContent)
     TextView textView;
 
+    /**
+     * Instantiates a new My view holder.
+     *
+     * @param itemView the item view
+     */
     public MyViewHolder(@NonNull View itemView) {
         super(itemView);
+        //Bind ButterKnife to our MyViewHolder
         ButterKnife.bind(this, itemView);
     }
 
+    /**
+     * Bind.
+     * Call this method from your adapter
+     *
+     * @param text the content to show
+     */
     public void bind(String text) {
+        //Set text to textView
         textView.setText(text);
     }
 }

@@ -18,7 +18,15 @@ package com.dmytroporoshyn.mvpexample.model;
 
 import io.reactivex.Observable;
 
+/**
+ * The interface Data base model.
+ */
 public interface IDataBaseModel {
 
+    /**
+     * Gets data.
+     *
+     * @return the Observable<String>
+     */
     Observable<String> getData();
 }

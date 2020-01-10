@@ -38,47 +38,90 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * The type Main activity.
+ */
 public class MainActivity extends AppCompatActivity {
 
+    /**
+     * The Main activity presenter.
+     * You want Dagger to provide an instance of MainActivityPresenter from the graph
+     */
     @Inject
     MainActivityPresenter mainActivityPresenter;
 
+    /**
+     * The Recycler view fot draw list with data.
+     */
     @BindView(R.id.dataList)
     RecyclerView recyclerView;
 
+    /**
+     * The Progress bar to inform user about data loading
+     */
     @BindView(R.id.loading)
     ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Make Dagger instantiate @Inject fields in MainActivity
         ((MyApplication) getApplicationContext()).appComponent.inject(this);
+        // Now mainActivityPresenter is available
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Set view for ButterKnife binding
         ButterKnife.bind(this);
+
+        //Set activity for presenter
         mainActivityPresenter.setView(this);
 
+        //Set LayoutManager for recyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
+    /**
+     * Gets data.
+     * Called when click on Get Data button
+     *
+     * "@OnClick({R.id.getData})" tels to ButterKnife create onClick method for view
+     */
     @OnClick({R.id.getData})
     public void getData() {
+        //Show progressBar
         progressBar.setVisibility(View.VISIBLE);
+        //Call getData method
         mainActivityPresenter.getData();
     }
 
+    /**
+     * Sets data list.
+     * Called from mainActivityPresenter
+     *
+     * @param dataList the list of retrieved data
+     */
     public void setDataList(List<String> dataList) {
+        //Hide progressBar
         progressBar.setVisibility(View.GONE);
-
+        //Create new adapter for RecyclerView
         RecyclerView.Adapter adapter = new MyAdapter(dataList);
+        //Set adapter to recyclerView
         recyclerView.setAdapter(adapter);
     }
 
+    /**
+     * Data get error.
+     * Called from mainActivityPresenter
+     */
     public void dataGetError() {
+        //Show Toast
         Toast.makeText(this, R.string.error_text, Toast.LENGTH_LONG).show();
     }
 
     @Override
     protected void onDestroy() {
+        //Call unbindView method
         mainActivityPresenter.unbindView();
         super.onDestroy();
     }

@@ -18,17 +18,28 @@ package com.dmytroporoshyn.mvpexample.model;
 
 import io.reactivex.Observable;
 
+/**
+ * The type Data base model.
+ */
 public class DataBaseModel implements IDataBaseModel {
 
+    /**
+     * The function for simulate work of Observable
+     *
+     * @return Observable<String>
+     */
     @Override
     public Observable<String> getData() {
         return Observable.create(emitter -> {
             try {
                 for (int i = 0; i < 5; i++) {
+                    //Send value to Observable
                     emitter.onNext(String.valueOf(i));
                 }
+                //Notify Observable that all data send
                 emitter.onComplete();
             } catch (Exception e) {
+                //Notify Observable that error occurred while we retrieve data
                 emitter.onError(e);
             }
         });

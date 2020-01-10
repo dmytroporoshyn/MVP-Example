@@ -19,21 +19,37 @@ package com.dmytroporoshyn.mvpexample;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
+/**
+ * The type Disposable manager.
+ */
 public class DisposableManager {
 
+    /**
+     * The composite disposable.
+     */
     private static CompositeDisposable compositeDisposable;
 
-    private DisposableManager() {
-    }
-
+    /**
+     * Add disposable to compositeDisposable
+     *
+     * @param disposable the disposable
+     */
     public static void add(Disposable disposable) {
         getCompositeDisposable().add(disposable);
     }
 
+    /**
+     * Dispose compositeDisposable
+     */
     public static void dispose() {
         getCompositeDisposable().dispose();
     }
 
+    /**
+     * Get composite disposable
+     *
+     * @return the composite disposable
+     */
     private static CompositeDisposable getCompositeDisposable() {
         if (compositeDisposable == null || compositeDisposable.isDisposed()) {
             compositeDisposable = new CompositeDisposable();

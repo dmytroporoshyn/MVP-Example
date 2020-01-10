@@ -16,11 +16,26 @@
 
 package com.dmytroporoshyn.mvpexample.presenter.base;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * The interface Base presenter.
+ *
+ * @param <T> the type parameter
+ */
 public interface BasePresenter<T extends AppCompatActivity> {
 
-    void setView(T t);
+    /**
+     * Sets activity to Presenter.
+     *
+     * @param t the AppCompatActivity
+     */
+    void setView(@NonNull T t);
 
+    /**
+     * Unbind view.
+     * Call this in Activity onDestroy method
+     */
     void unbindView();
 }

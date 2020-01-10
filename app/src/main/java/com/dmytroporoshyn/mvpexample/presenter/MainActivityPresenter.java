@@ -27,11 +27,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * The type Main activity presenter.
+ */
 public class MainActivityPresenter implements BasePresenter<MainActivity> {
 
+    /**
+     * The dataBaseModel interface for retrieve data
+     */
     private IDataBaseModel dataBaseModel;
+    /**
+     * The mainActivity for notify activity
+     */
     private MainActivity mainActivity;
 
+    /**
+     * Instantiates a new Main activity presenter.
+     *
+     * @param dataBaseModel the data base model
+     */
     public MainActivityPresenter(IDataBaseModel dataBaseModel) {
         this.dataBaseModel = dataBaseModel;
     }
@@ -41,20 +55,30 @@ public class MainActivityPresenter implements BasePresenter<MainActivity> {
         this.mainActivity = mainActivity;
     }
 
+    /**
+     * Gets data.
+     */
     public void getData() {
         List<String> stringList = new ArrayList<>();
-        DisposableManager.add(dataBaseModel.getData()
+        //add to DisposableManager new disposable
+        DisposableManager.add(
+                //call getData function
+                dataBaseModel.getData()
+                //add OnComplete function to notify Main Activity
                 .doOnComplete(() -> mainActivity.setDataList(stringList))
+                //add OnError function to notify Main Activity about error
                 .doOnError(throwable -> {
                     throwable.printStackTrace();
                     mainActivity.dataGetError();
                 })
+                //subscribe on observable
                 .subscribe(stringList::add)
         );
     }
 
     @Override
     public void unbindView() {
+        //dispose when called unbindView
         DisposableManager.dispose();
     }
 }
